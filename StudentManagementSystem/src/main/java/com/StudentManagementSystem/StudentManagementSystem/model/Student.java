@@ -1,5 +1,6 @@
 package com.StudentManagementSystem.StudentManagementSystem.model;
 
+import com.StudentManagementSystem.StudentManagementSystem.enums.StudentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,7 +42,9 @@ public class Student {
     private String course;          // Course/Program enrolled
     @Column(name = "gpa",nullable = false)
     private Double gpa;             // Grade Point Average
-    @Column(name = "status",nullable = false)
-    private String status;          // Active, Graduated, Dropped Out, etc.
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private StudentStatus studentStatus;
 
 }

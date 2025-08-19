@@ -23,5 +23,5 @@ public class StudentDto {
     private String enrollmentNumber; // Unique enrollment number
     private String course;          // Course/Program enrolled
     private Double gpa;             // Grade Point Average
-    private String status;          // Active, Graduated, Dropped Out, etc.
+
 }
