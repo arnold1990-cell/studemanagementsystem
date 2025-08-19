@@ -1,33 +1,44 @@
 package com.StudentManagementSystem.StudentManagementSystem.controller;
 
 import com.StudentManagementSystem.StudentManagementSystem.model.Student;
-import com.StudentManagementSystem.StudentManagementSystem.services.Studentservices;
+import com.StudentManagementSystem.StudentManagementSystem.services.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/students")
+@RequiredArgsConstructor
 public class StudentController {
-    private final Studentservices studentservices;
 
-    public Optional<Student> findById(Long id) {
-        return studentservices.findById(id);
+    private final StudentService studentService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
+        return studentService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    public List<Student> findAll() {
-        return studentservices.findAll();
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.findAll();
     }
 
-    public <S extends Student> S save(S entity) {
-        return studentservices.save(entity);
+    @PostMapping
+    public Student createStudent(@RequestBody Student student) {
+        return studentService.save(student);
     }
 
-    public void delete(Student entity) {
-        studentservices.delete(entity);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteStudent(@PathVariable Long id) {
+        return studentService.findById(id)
+                .map(student -> {
+                    studentService.delete(student);
+                    return ResponseEntity.noContent().build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
