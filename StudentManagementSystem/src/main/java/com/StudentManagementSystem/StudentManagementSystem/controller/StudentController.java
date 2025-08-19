@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/students")
 public class StudentController {
-    private   final Studentservices studentservices;
+    private final Studentservices studentservices;
 
     public Optional<Student> findById(Long id) {
         return studentservices.findById(id);
