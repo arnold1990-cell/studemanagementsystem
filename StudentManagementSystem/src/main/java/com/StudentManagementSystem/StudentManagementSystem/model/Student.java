@@ -1,5 +1,6 @@
 package com.StudentManagementSystem.StudentManagementSystem.model;
 
+import com.StudentManagementSystem.StudentManagementSystem.enums.GradeLevel;
 import com.StudentManagementSystem.StudentManagementSystem.enums.StudentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,8 +35,8 @@ public class Student {
     private int age;                // Age of a student
     @Column(name = "date_of_birth",nullable = false)
     private String dateOfBirth;     // Date of birth
-    @Column(name = "grade_level",nullable = false)
-    private String gradeLevel;      // e.g., Grade 5, Form 2, etc.
+   /* @Column(name = "grade_level",nullable = false)
+    private String gradeLevel;      // e.g., Grade 5, Form 2, etc.*/
     @Column(name = "enrollment_number",nullable = false,unique = false)
     private String enrollmentNumber; // Unique enrollment number
     @Column(name = "course",nullable = false)
@@ -43,8 +44,13 @@ public class Student {
     @Column(name = "gpa",nullable = false)
     private Double gpa;             // Grade Point Average
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "status", nullable = false)
     private StudentStatus studentStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "grade_level", nullable = false)
+    private GradeLevel gradeLevel;
+
 
 }
